@@ -1,0 +1,459 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Emerging Leader Readiness Assessment | Tim Jacobs</title>
+<meta name="description" content="A 20-question assessment that measures your readiness to lead across decision ownership, communication, delegation, and self-leadership. Takes 5 minutes.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Saira+Extra+Condensed:wght@600;700&family=Public+Sans:ital,wght@0,400;0,600;0,700;1,400&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --ink:#0E1726;          /* deepest navy, page background */
+    --panel:#16223A;        /* card navy */
+    --panel-2:#1C2B47;      /* raised navy */
+    --line:#2A3B5C;         /* hairline */
+    --text:#EDF1F7;         /* near-white */
+    --muted:#8FA1BC;        /* blue-gray */
+    --red:#D6453B;          /* brand red */
+    --red-deep:#A93028;
+    --bar-track:#22324F;
+    --ok:#4CAF7D;
+  }
+  *{box-sizing:border-box;margin:0;padding:0}
+  html{scroll-behavior:smooth}
+  body{
+    background:
+      radial-gradient(1200px 600px at 80% -10%, #1A2A49 0%, transparent 60%),
+      var(--ink);
+    color:var(--text);
+    font-family:'Public Sans',system-ui,sans-serif;
+    font-size:17px;line-height:1.6;
+    min-height:100vh;
+  }
+  .wrap{max-width:680px;margin:0 auto;padding:32px 20px 80px}
+
+  /* ---------- type ---------- */
+  .display{
+    font-family:'Saira Extra Condensed',sans-serif;
+    font-weight:700;text-transform:uppercase;letter-spacing:.02em;
+    line-height:.95;
+  }
+  .eyebrow{
+    font-size:13px;font-weight:700;letter-spacing:.18em;text-transform:uppercase;
+    color:var(--red);margin-bottom:14px;
+  }
+
+  /* ---------- ascending bars signature ---------- */
+  .bars{display:flex;align-items:flex-end;gap:6px;height:54px;margin-bottom:28px}
+  .bars span{width:12px;background:var(--bar-track);border-radius:2px;transition:background .4s, box-shadow .4s}
+  .bars span:nth-child(1){height:30%}
+  .bars span:nth-child(2){height:47%}
+  .bars span:nth-child(3){height:64%}
+  .bars span:nth-child(4){height:82%}
+  .bars span:nth-child(5){height:100%}
+  .bars span.lit{background:var(--red);box-shadow:0 0 14px rgba(214,69,59,.45)}
+
+  /* ---------- screens ---------- */
+  .screen{display:none;animation:rise .45s ease both}
+  .screen.active{display:block}
+  @keyframes rise{from{opacity:0;transform:translateY(14px)}to{opacity:1;transform:none}}
+  @media (prefers-reduced-motion:reduce){.screen{animation:none}}
+
+  /* ---------- intro ---------- */
+  .h1{font-size:clamp(54px,9vw,86px)}
+  .h1 em{font-style:normal;color:var(--red)}
+  .lede{color:var(--muted);font-size:18px;margin:20px 0 8px;max-width:54ch}
+  .meta-row{display:flex;gap:22px;margin:26px 0 34px;color:var(--muted);font-size:14px}
+  .meta-row b{color:var(--text);font-weight:600}
+  .dims{border-top:1px solid var(--line);margin-top:8px}
+  .dim-row{display:flex;align-items:baseline;gap:16px;padding:13px 0;border-bottom:1px solid var(--line);flex-wrap:nowrap}
+  .dim-row .display{font-size:23px;color:var(--text);white-space:nowrap;flex-shrink:0}
+  .dim-row p{color:var(--muted);font-size:13.5px;margin-left:auto;text-align:right;white-space:nowrap}
+  @media (max-width:540px){
+    .dim-row{flex-direction:column;gap:2px;align-items:flex-start}
+    .dim-row p{margin-left:0;text-align:left;white-space:normal}
+  }
+
+  /* ---------- buttons ---------- */
+  .btn{
+    display:inline-block;background:var(--red);color:#fff;border:none;cursor:pointer;
+    font-family:'Saira Extra Condensed',sans-serif;font-weight:700;font-size:22px;
+    letter-spacing:.06em;text-transform:uppercase;
+    padding:14px 36px;border-radius:4px;margin-top:30px;
+    transition:background .2s, transform .15s;
+  }
+  .btn:hover{background:var(--red-deep)}
+  .btn:active{transform:translateY(1px)}
+  .btn:focus-visible{outline:3px solid #fff;outline-offset:3px}
+  .btn[disabled]{opacity:.45;cursor:not-allowed}
+  .btn-ghost{background:transparent;border:1px solid var(--line);color:var(--muted);font-size:18px;padding:10px 22px}
+  .btn-ghost:hover{background:var(--panel);color:var(--text)}
+
+  /* ---------- question screen ---------- */
+  .progress-label{display:flex;justify-content:space-between;font-size:13px;color:var(--muted);letter-spacing:.08em;text-transform:uppercase;margin-bottom:10px}
+  .q-dim{color:var(--red);font-weight:700}
+  .q-text{font-size:clamp(24px,4.4vw,32px);font-weight:600;line-height:1.3;margin:18px 0 30px;min-height:3.2em}
+  .likert{display:flex;flex-direction:column;gap:10px}
+  .likert button{
+    display:flex;align-items:center;gap:14px;width:100%;text-align:left;
+    background:var(--panel);border:1px solid var(--line);border-radius:6px;
+    color:var(--text);font-family:inherit;font-size:16px;padding:14px 18px;cursor:pointer;
+    transition:border-color .15s, background .15s;
+  }
+  .likert button:hover{border-color:var(--red);background:var(--panel-2)}
+  .likert button:focus-visible{outline:2px solid var(--red);outline-offset:2px}
+  .likert .key{
+    font-family:'Saira Extra Condensed',sans-serif;font-weight:700;font-size:20px;
+    color:var(--muted);border:1px solid var(--line);border-radius:4px;
+    width:30px;height:30px;display:flex;align-items:center;justify-content:center;flex-shrink:0;
+  }
+  .likert button:hover .key{color:var(--red);border-color:var(--red)}
+  .hint{color:var(--muted);font-size:13px;margin-top:18px}
+  .back{background:none;border:none;color:var(--muted);font-size:14px;cursor:pointer;margin-top:22px;text-decoration:underline;text-underline-offset:3px}
+  .back:hover{color:var(--text)}
+
+  /* ---------- gate ---------- */
+  .gate-card{background:var(--panel);border:1px solid var(--line);border-radius:8px;padding:34px 30px;margin-top:26px}
+  .gate-card .h2{font-size:clamp(38px,6vw,52px);margin-bottom:10px}
+  label{display:block;font-size:13px;letter-spacing:.1em;text-transform:uppercase;color:var(--muted);margin:18px 0 6px}
+  input[type=text],input[type=email]{
+    width:100%;background:var(--ink);border:1px solid var(--line);border-radius:5px;
+    color:var(--text);font-family:inherit;font-size:17px;padding:13px 14px;
+  }
+  input:focus-visible{outline:2px solid var(--red);outline-offset:1px;border-color:var(--red)}
+  .fine{color:var(--muted);font-size:13px;margin-top:14px}
+  .err{color:#FF8C84;font-size:14px;margin-top:10px;display:none}
+
+  /* ---------- results ---------- */
+  .band-tag{
+    display:inline-block;background:var(--red);color:#fff;border-radius:3px;
+    font-family:'Saira Extra Condensed',sans-serif;font-weight:700;font-size:20px;
+    letter-spacing:.08em;text-transform:uppercase;padding:4px 14px;margin-bottom:14px;
+  }
+  .score-hero{display:flex;align-items:flex-end;gap:26px;margin:8px 0 30px;flex-wrap:wrap}
+  .score-num{font-size:clamp(90px,16vw,140px);line-height:.85}
+  .score-num small{font-size:.35em;color:var(--muted)}
+  .result-bars{display:flex;align-items:flex-end;gap:14px;padding:0 4px}
+  .rbar{flex:1;display:flex;flex-direction:column;justify-content:flex-end;align-items:center;min-width:0}
+  .rbar .stack{display:flex;flex-direction:column;justify-content:flex-end;align-items:center;height:190px;width:100%;border-bottom:2px solid var(--line)}
+  .rbar .fill{width:100%;max-width:74px;background:linear-gradient(180deg,var(--red),var(--red-deep));border-radius:3px 3px 0 0;transition:height 1s ease;height:0}
+  .rbar .val{font-family:'Saira Extra Condensed',sans-serif;font-weight:700;font-size:24px;margin-bottom:6px}
+  .rbar .lbl{font-size:12px;color:var(--muted);letter-spacing:.04em;text-transform:uppercase;text-align:center;padding-top:10px;line-height:1.35;min-height:3.2em}
+  .read-block{background:var(--panel);border:1px solid var(--line);border-radius:8px;padding:26px 26px;margin-top:26px}
+  .read-block h3{font-family:'Saira Extra Condensed',sans-serif;font-weight:700;font-size:26px;text-transform:uppercase;letter-spacing:.03em;margin-bottom:8px}
+  .read-block h3 .pin{color:var(--red)}
+  .read-block p{color:#C6D0E0;font-size:16px}
+  .read-block p + p{margin-top:10px}
+  .cta-block{background:linear-gradient(135deg,var(--panel-2),var(--panel));border:1px solid var(--red);border-radius:8px;padding:30px 28px;margin-top:30px;text-align:center}
+  .cta-block .display{font-size:clamp(30px,5vw,42px)}
+  .cta-block p{color:var(--muted);margin-top:8px}
+  .footer{margin-top:60px;border-top:1px solid var(--line);padding-top:18px;color:var(--muted);font-size:13px;display:flex;justify-content:space-between;flex-wrap:wrap;gap:8px}
+  .footer a{color:var(--muted)}
+  .spin{display:none;margin-left:10px;font-size:14px;color:var(--muted)}
+</style>
+</head>
+<body>
+<div class="wrap">
+
+  <!-- ============ INTRO ============ -->
+  <section class="screen active" id="s-intro">
+    <div class="bars" aria-hidden="true"><span class="lit"></span><span></span><span></span><span></span><span></span></div>
+    <p class="eyebrow">Tim Jacobs · Leadership Coaching</p>
+    <h1 class="h1 display">Are you ready<br>to <em>lead?</em></h1>
+    <p class="lede">Most new leaders are promoted for what they did, then judged for what they've never been taught. This assessment measures your readiness across the five pillars that decide whether your first leadership years build momentum or burn you out.</p>
+    <div class="meta-row">
+      <span><b>20</b> questions</span>
+      <span><b>5</b> minutes</span>
+      <span><b>5</b> pillars scored</span>
+    </div>
+    <div class="dims">
+      <div class="dim-row"><span class="display">Leadership Identity</span><p>Who you are when it costs you</p></div>
+      <div class="dim-row"><span class="display">Lead Well</span><p>How you lead the people in front of you</p></div>
+      <div class="dim-row"><span class="display">Live Right</span><p>How you lead yourself</p></div>
+      <div class="dim-row"><span class="display">Stand Firm</span><p>Character under pressure</p></div>
+      <div class="dim-row"><span class="display">Clarity &amp; Direction</span><p>Where you're going and how fast</p></div>
+    </div>
+    <button class="btn" onclick="startQuiz()">Start the assessment</button>
+    <p class="fine">Answer honestly, not aspirationally. The score is only useful if it's true.</p>
+  </section>
+
+  <!-- ============ QUESTIONS ============ -->
+  <section class="screen" id="s-quiz">
+    <div class="bars" id="quiz-bars" aria-hidden="true"><span></span><span></span><span></span><span></span><span></span></div>
+    <div class="progress-label">
+      <span class="q-dim" id="q-dim">Leadership Identity</span>
+      <span id="q-count">1 / 20</span>
+    </div>
+    <p class="q-text" id="q-text"></p>
+    <div class="likert" id="likert" role="group" aria-label="Answer options"></div>
+    <p class="hint">Tip: press 1–5 on your keyboard to answer faster.</p>
+    <button class="back" id="q-back" onclick="goBack()">← Previous question</button>
+  </section>
+
+  <!-- ============ EMAIL GATE ============ -->
+  <section class="screen" id="s-gate">
+    <div class="bars" aria-hidden="true"><span class="lit"></span><span class="lit"></span><span class="lit"></span><span class="lit"></span><span class="lit"></span></div>
+    <p class="eyebrow">Assessment complete</p>
+    <div class="gate-card">
+      <h2 class="h2 display">Your results are scored.</h2>
+      <p style="color:var(--muted)">Enter your name and email and your full readiness profile loads now: dimension scores, your readiness band, and the one area to work on first. You'll also get a copy by email so you can track your growth.</p>
+      <label for="g-name">First name</label>
+      <input type="text" id="g-name" autocomplete="given-name" placeholder="Your first name">
+      <label for="g-email">Email</label>
+      <input type="email" id="g-email" autocomplete="email" placeholder="you@example.com">
+      <p class="err" id="g-err">Enter a valid email to see your results.</p>
+      <button class="btn" id="g-btn" onclick="submitGate()">Show my results<span class="spin" id="g-spin">sending…</span></button>
+      <p class="fine">You'll get your results plus practical leadership coaching from me about once a week. Unsubscribe anytime. No spam, ever.</p>
+    </div>
+  </section>
+
+  <!-- ============ RESULTS ============ -->
+  <section class="screen" id="s-results">
+    <p class="eyebrow">Your readiness profile</p>
+    <span class="band-tag" id="r-band"></span>
+    <div class="score-hero">
+      <div class="score-num display"><span id="r-score">0</span><small>/100</small></div>
+      <p class="lede" id="r-bandcopy" style="margin:0 0 18px"></p>
+    </div>
+    <div class="result-bars" id="r-bars"></div>
+    <div class="read-block">
+      <h3><span class="pin">Strongest:</span> <span id="r-strong"></span></h3>
+      <p id="r-strong-copy"></p>
+    </div>
+    <div class="read-block">
+      <h3><span class="pin">Work here first:</span> <span id="r-weak"></span></h3>
+      <p id="r-weak-copy"></p>
+      <p id="r-weak-action" style="color:var(--text);font-weight:600"></p>
+    </div>
+    <div class="cta-block" id="r-cta"></div>
+    <div class="footer">
+      <span>© Tim Jacobs · timjacobs.coach</span>
+      <span>Lead with confidence. Lead with clarity.</span>
+    </div>
+  </section>
+</div>
+
+<script>
+/* ================= CONFIG · Tim: these 3 lines are your 10% ================= */
+const KIT_FORM_ID = "";                          // paste your Kit form ID (numbers only) e.g. "7654321"
+const CALENDLY_URL = "https://calendly.com/";    // paste your booking link
+const COACH_EMAIL  = "tim@timjacobs.coach";      // fallback contact shown if signup fails
+/* ============================================================================ */
+
+const DIMS = ["Leadership Identity","Lead Well","Live Right","Stand Firm","Clarity & Direction"];
+
+const QUESTIONS = [
+  // d = pillar index, r = reverse-scored
+  // ----- Leadership Identity (from intake Q1, Q3, Q4 + one reverse) -----
+  {d:0, t:"My actions as a leader consistently reflect my stated values."},
+  {d:0, t:"Under pressure, I still recognize the version of myself I want to be."},
+  {d:0, t:"I can state my personal leadership standard: what I expect of myself regardless of role or title."},
+  {d:0, t:"I second-guess myself after most significant decisions.", r:true},
+  // ----- Lead Well (from intake Q6, Q7 + behavioral items) -----
+  {d:1, t:"The people I lead trust me as a person, not just my position."},
+  {d:1, t:"I handle conflict and hard conversations directly, without unnecessary delay."},
+  {d:1, t:"When a decision falls in a gray area, I make the call rather than escalate it."},
+  {d:1, t:"I redo my team's work when it isn't done the way I would do it.", r:true},
+  // ----- Live Right (from intake Q11, Q12, Q13 + one reverse) -----
+  {d:2, t:"My daily schedule reflects what I say matters most to me."},
+  {d:2, t:"I have sustainable physical energy. I'm not running on empty."},
+  {d:2, t:"I follow through on personal commitments with the same standard I hold for professional ones."},
+  {d:2, t:"I run on urgency and adrenaline more than rhythm and routine.", r:true},
+  // ----- Stand Firm (from intake Q16, Q17, Q18 + one reverse) -----
+  {d:3, t:"Who I am at work and who I am at home are the same person."},
+  {d:3, t:"When I fail, I own it cleanly, without deflection or blame."},
+  {d:3, t:"I make the right call even when it costs me politically or relationally."},
+  {d:3, t:"I soften or shade the truth when the honest version would create friction.", r:true},
+  // ----- Clarity & Direction (from intake Q21, Q22, Q23, Q25) -----
+  {d:4, t:"I know where I'm going in the next 12 months, professionally and personally."},
+  {d:4, t:"I have a 90-day plan I'm actively working, not just goals I'm hoping for."},
+  {d:4, t:"I feel real momentum in my life right now. Not stuck, not stalled."},
+  {d:4, t:"I am ready to do the real work, not just read about it."}
+];
+
+const SCALE = ["Strongly disagree","Disagree","Sometimes","Agree","Strongly agree"];
+
+const BANDS = [
+  { min:80, tag:"READY", name:"Ready to Rise",
+    copy:"You're operating above your title. The gap isn't capability. It's positioning, scope, and the rooms you're not in yet.",
+    cta:{h:"You're ready. Let's make sure the right people know it.",
+         p:"High scorers waste years waiting to be noticed. Book a free 30-minute Readiness Review and we'll map your next move: the role, the visibility plan, and the one skill that gets you there faster.",
+         b:"Book my free readiness review"}},
+  { min:60, tag:"BUILDING", name:"Building Momentum",
+    copy:"You have real leadership instincts and at least one pillar holding you back. Targeted work here moves you fast. Drift here keeps you stuck at almost.",
+    cta:{h:"You're closer than you think.",
+         p:"Your profile shows exactly where to focus. Watch your inbox. Over the next two weeks I'll send you the practical playbook for your lowest pillar, drawn from 20+ years of corporate and ministry leadership.",
+         b:"Want to move faster? Book a free call"}},
+  { min:0, tag:"FOUNDATION", name:"Laying the Foundation",
+    copy:"You're earlier in the leadership journey, which is the best possible time to build right habits instead of unlearning wrong ones later.",
+    cta:{h:"Every strong leader started exactly here.",
+         p:"Your results email includes the first three foundations to build now, before you're managing people full-time. Start there. The leaders who build these early skip years of painful trial and error.",
+         b:"Get a head start. Book a free call"}}
+];
+
+const DIM_READS = {
+  strong:[
+    "You know who you are when it costs you. Your values and your actions match, and pressure doesn't change your character. This is the foundation every other pillar stands on.",
+    "You're effective with the people in front of you. They trust you as a person, hard conversations happen on time, and gray-area calls don't stall on your desk. This is what gets noticed first.",
+    "You lead yourself before you lead anyone else. Your schedule, energy, and personal follow-through match what you say matters. This is what makes your leadership sustainable.",
+    "Your character holds under pressure. Same person at work and at home, clean ownership when you fail, right calls even when they cost you. This is what people remember about you in ten years.",
+    "You know where you're going and you're actively moving. A 12-month direction, a working plan, real momentum. Leaders with direction are the ones other people follow."
+  ],
+  weak:[
+    "There's a gap between the leader you say you are and the one showing up under pressure. People follow consistency, and right now yours is situational.",
+    "The professional mechanics are costing you: delayed conversations, decisions stalling on your desk, or work that still routes through you. Your team feels it before you see it.",
+    "You're leading from a depleted tank. When your calendar, energy, and personal commitments don't match your stated priorities, your leadership defaults to reaction. Reactive leaders plateau.",
+    "Pressure is bending your standards. Compartmentalizing, deflecting when things go wrong, or shading the truth to avoid friction. Small bends become a reputation.",
+    "You're working hard without a clear destination. Goals you're hoping for instead of a plan you're running. Drift feels like patience, but it compounds like debt."
+  ],
+  action:[
+    "This week: write your personal leadership standard in three sentences. What you expect of yourself regardless of role, title, or audience. Put it where you'll see it every day.",
+    "This week: name the one conversation or decision you've been managing around instead of handling. Handle it within 72 hours. Direct, kind, under 15 minutes.",
+    "This week: audit your calendar against your stated priorities and cut the worst mismatch. Then block 90 minutes of thinking time and treat it like a meeting with your VP.",
+    "This week: identify one place you've been compromising under pressure and name it out loud to one person you trust. Naming it is how the bend stops.",
+    "This week: write a 90-day plan with three outcomes and the first action for each. Put the first action on tomorrow's calendar."
+  ]
+};
+
+let qi = 0;
+const answers = new Array(QUESTIONS.length).fill(null);
+
+function show(id){
+  document.querySelectorAll('.screen').forEach(s=>s.classList.remove('active'));
+  document.getElementById(id).classList.add('active');
+  window.scrollTo({top:0});
+}
+
+function startQuiz(){ qi = 0; renderQ(); show('s-quiz'); }
+
+function renderQ(){
+  const q = QUESTIONS[qi];
+  document.getElementById('q-dim').textContent = DIMS[q.d];
+  document.getElementById('q-count').textContent = (qi+1) + " / " + QUESTIONS.length;
+  document.getElementById('q-text').textContent = q.t;
+  document.getElementById('q-back').style.visibility = qi === 0 ? 'hidden' : 'visible';
+  const box = document.getElementById('likert');
+  box.innerHTML = "";
+  SCALE.forEach((label,i)=>{
+    const b = document.createElement('button');
+    b.innerHTML = '<span class="key">'+(i+1)+'</span>'+label;
+    b.onclick = ()=>answer(i+1);
+    box.appendChild(b);
+  });
+  // light progress bars by fifths
+  const bars = document.querySelectorAll('#quiz-bars span');
+  bars.forEach((s,i)=> s.classList.toggle('lit', i < Math.max(1,Math.ceil((qi+1)/QUESTIONS.length*5))));
+}
+
+function answer(v){
+  answers[qi] = v;
+  if(qi < QUESTIONS.length-1){ qi++; renderQ(); }
+  else { show('s-gate'); document.getElementById('g-name').focus(); }
+}
+
+function goBack(){ if(qi>0){ qi--; renderQ(); } }
+
+document.addEventListener('keydown', e=>{
+  if(!document.getElementById('s-quiz').classList.contains('active')) return;
+  if(e.key>='1' && e.key<='5') answer(parseInt(e.key,10));
+});
+
+/* ---------- scoring ---------- */
+function computeScores(){
+  const sums = DIMS.map(()=>0), counts = DIMS.map(()=>0);
+  QUESTIONS.forEach((q,i)=>{
+    let v = answers[i] ?? 3;
+    if(q.r) v = 6 - v;
+    sums[q.d]+=v; counts[q.d]++;
+  });
+  const dimPct = sums.map((s,i)=> Math.round(((s/counts[i])-1)/4*100));
+  const total = Math.round(dimPct.reduce((a,b)=>a+b,0)/DIMS.length);
+  return {dimPct, total};
+}
+
+function bandFor(total){ return BANDS.find(b=> total>=b.min); }
+
+/* ---------- gate + Kit ---------- */
+async function submitGate(){
+  const email = document.getElementById('g-email').value.trim();
+  const name  = document.getElementById('g-name').value.trim();
+  const err   = document.getElementById('g-err');
+  if(!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email)){ err.style.display='block'; return; }
+  err.style.display='none';
+  const btn = document.getElementById('g-btn');
+  btn.disabled = true; document.getElementById('g-spin').style.display='inline';
+
+  const {dimPct,total} = computeScores();
+  const band = bandFor(total);
+
+  if(KIT_FORM_ID){
+    try{
+      const fd = new FormData();
+      fd.append('email_address', email);
+      fd.append('fields[first_name]', name);
+      fd.append('fields[readiness_score]', String(total));
+      fd.append('fields[readiness_band]', band.name);
+      fd.append('fields[pillar_identity]', String(dimPct[0]));
+      fd.append('fields[pillar_lead_well]', String(dimPct[1]));
+      fd.append('fields[pillar_live_right]', String(dimPct[2]));
+      fd.append('fields[pillar_stand_firm]', String(dimPct[3]));
+      fd.append('fields[pillar_direction]', String(dimPct[4]));
+      await fetch('https://app.kit.com/forms/'+KIT_FORM_ID+'/subscriptions', {method:'POST', body:fd, mode:'no-cors'});
+    }catch(e){ console.warn('Kit signup failed:', e); }
+  } else {
+    console.log('PREVIEW MODE: no Kit form ID set. Captured:', {email,name,total,band:band.name,dimPct});
+  }
+  renderResults(name);
+}
+
+/* ---------- results ---------- */
+function renderResults(name){
+  const {dimPct,total} = computeScores();
+  const band = bandFor(total);
+
+  document.getElementById('r-band').textContent = band.name;
+  document.getElementById('r-bandcopy').textContent = (name ? name + ": " : "") + band.copy;
+
+  // bars: labels live inside each column so they can't drift
+  const barsBox = document.getElementById('r-bars');
+  barsBox.innerHTML="";
+  // sort ascending for the signature ascending-bars read
+  const order = dimPct.map((v,i)=>({v,i})).sort((a,b)=>a.v-b.v);
+  order.forEach(o=>{
+    const w = document.createElement('div'); w.className='rbar';
+    w.innerHTML =
+      '<div class="stack"><div class="val display">'+o.v+'</div><div class="fill" data-h="'+Math.max(o.v,4)+'"></div></div>'+
+      '<div class="lbl">'+DIMS[o.i]+'</div>';
+    barsBox.appendChild(w);
+  });
+
+  const hi = dimPct.indexOf(Math.max(...dimPct));
+  const lo = dimPct.indexOf(Math.min(...dimPct));
+  document.getElementById('r-strong').textContent = DIMS[hi] + " · " + dimPct[hi];
+  document.getElementById('r-strong-copy').textContent = DIM_READS.strong[hi];
+  document.getElementById('r-weak').textContent = DIMS[lo] + " · " + dimPct[lo];
+  document.getElementById('r-weak-copy').textContent = DIM_READS.weak[lo];
+  document.getElementById('r-weak-action').textContent = DIM_READS.action[lo];
+
+  const cta = band.cta;
+  document.getElementById('r-cta').innerHTML =
+    '<h2 class="display">'+cta.h+'</h2><p>'+cta.p+'</p>'+
+    '<a class="btn" href="'+CALENDLY_URL+'" target="_blank" rel="noopener">'+cta.b+'</a>';
+
+  document.getElementById('r-score').textContent = "0";
+  show('s-results');
+
+  // animate
+  requestAnimationFrame(()=>{
+    document.querySelectorAll('#r-bars .fill').forEach(f=>{ f.style.height = f.dataset.h + "%"; });
+    const target = total; let cur = 0;
+    const step = ()=>{ cur += Math.max(1,Math.round(target/40)); if(cur>=target){cur=target} 
+      document.getElementById('r-score').textContent = cur; if(cur<target) requestAnimationFrame(step); };
+    requestAnimationFrame(step);
+  });
+}
+</script>
+</body>
+</html>
