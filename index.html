@@ -4,19 +4,19 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>Emerging Leader Readiness Assessment | Tim Jacobs</title>
-<meta name="description" content="A 20-question assessment that measures your readiness to lead across decision ownership, communication, delegation, and self-leadership. Takes 5 minutes.">
+<meta name="description" content="A 20-question assessment that measures your leadership readiness across five pillars. Takes 5 minutes.">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Saira+Extra+Condensed:wght@600;700&family=Public+Sans:ital,wght@0,400;0,600;0,700;1,400&display=swap" rel="stylesheet">
 <style>
   :root{
-    --ink:#0E1726;          /* deepest navy, page background */
-    --panel:#16223A;        /* card navy */
-    --panel-2:#1C2B47;      /* raised navy */
-    --line:#2A3B5C;         /* hairline */
-    --text:#EDF1F7;         /* near-white */
-    --muted:#8FA1BC;        /* blue-gray */
-    --red:#D6453B;          /* brand red */
+    --ink:#0E1726;
+    --panel:#16223A;
+    --panel-2:#1C2B47;
+    --line:#2A3B5C;
+    --text:#EDF1F7;
+    --muted:#8FA1BC;
+    --red:#D6453B;
     --red-deep:#A93028;
     --bar-track:#22324F;
     --ok:#4CAF7D;
@@ -24,74 +24,58 @@
   *{box-sizing:border-box;margin:0;padding:0}
   html{scroll-behavior:smooth}
   body{
-    background:
-      radial-gradient(1200px 600px at 80% -10%, #1A2A49 0%, transparent 60%),
-      var(--ink);
-    color:var(--text);
-    font-family:'Public Sans',system-ui,sans-serif;
-    font-size:17px;line-height:1.6;
-    min-height:100vh;
+    background:radial-gradient(1200px 600px at 80% -10%,#1A2A49 0%,transparent 60%),var(--ink);
+    color:var(--text);font-family:'Public Sans',system-ui,sans-serif;
+    font-size:17px;line-height:1.6;min-height:100vh;
   }
   .wrap{max-width:680px;margin:0 auto;padding:32px 20px 80px}
-
-  /* ---------- type ---------- */
-  .display{
-    font-family:'Saira Extra Condensed',sans-serif;
-    font-weight:700;text-transform:uppercase;letter-spacing:.02em;
-    line-height:.95;
-  }
-  .eyebrow{
-    font-size:13px;font-weight:700;letter-spacing:.18em;text-transform:uppercase;
-    color:var(--red);margin-bottom:14px;
-  }
-
-  /* ---------- ascending bars signature ---------- */
+  .display{font-family:'Saira Extra Condensed',sans-serif;font-weight:700;text-transform:uppercase;letter-spacing:.02em;line-height:.95}
+  .eyebrow{font-size:13px;font-weight:700;letter-spacing:.18em;text-transform:uppercase;color:var(--red);margin-bottom:14px}
   .bars{display:flex;align-items:flex-end;gap:6px;height:54px;margin-bottom:28px}
-  .bars span{width:12px;background:var(--bar-track);border-radius:2px;transition:background .4s, box-shadow .4s}
+  .bars span{width:12px;background:var(--bar-track);border-radius:2px;transition:background .4s,box-shadow .4s}
   .bars span:nth-child(1){height:30%}
   .bars span:nth-child(2){height:47%}
   .bars span:nth-child(3){height:64%}
   .bars span:nth-child(4){height:82%}
   .bars span:nth-child(5){height:100%}
   .bars span.lit{background:var(--red);box-shadow:0 0 14px rgba(214,69,59,.45)}
-
-  /* ---------- screens ---------- */
   .screen{display:none;animation:rise .45s ease both}
   .screen.active{display:block}
   @keyframes rise{from{opacity:0;transform:translateY(14px)}to{opacity:1;transform:none}}
-  @media (prefers-reduced-motion:reduce){.screen{animation:none}}
+  @media(prefers-reduced-motion:reduce){.screen{animation:none}}
 
-  /* ---------- intro ---------- */
+  /* intro */
   .h1{font-size:clamp(54px,9vw,86px)}
   .h1 em{font-style:normal;color:var(--red)}
   .lede{color:var(--muted);font-size:18px;margin:20px 0 8px;max-width:54ch}
-  .meta-row{display:flex;gap:22px;margin:26px 0 34px;color:var(--muted);font-size:14px}
-  .meta-row b{color:var(--text);font-weight:600}
-  .dims{border-top:1px solid var(--line);margin-top:8px}
-  .dim-row{display:flex;align-items:baseline;gap:16px;padding:13px 0;border-bottom:1px solid var(--line);flex-wrap:nowrap}
-  .dim-row .display{font-size:23px;color:var(--text);white-space:nowrap;flex-shrink:0}
-  .dim-row p{color:var(--muted);font-size:13.5px;margin-left:auto;text-align:right;white-space:nowrap}
-  @media (max-width:540px){
-    .dim-row{flex-direction:column;gap:2px;align-items:flex-start}
-    .dim-row p{margin-left:0;text-align:left;white-space:normal}
-  }
+  .fine{color:var(--muted);font-size:13px;margin-top:14px}
 
-  /* ---------- buttons ---------- */
+  /* path cards */
+  .path-cards{display:flex;flex-direction:column;gap:14px;margin-top:32px}
+  .path-card{
+    background:var(--panel);border:1px solid var(--line);border-radius:8px;
+    padding:26px 28px;cursor:pointer;text-align:left;width:100%;
+    transition:border-color .2s,background .2s;display:flex;flex-direction:column;gap:8px;
+  }
+  .path-card:hover{border-color:var(--red);background:var(--panel-2)}
+  .path-card:focus-visible{outline:2px solid var(--red);outline-offset:2px}
+  .path-card-title{font-size:28px;color:var(--text);display:block}
+  .path-card-desc{font-size:15px;color:var(--muted);display:block}
+
+  /* buttons */
   .btn{
     display:inline-block;background:var(--red);color:#fff;border:none;cursor:pointer;
     font-family:'Saira Extra Condensed',sans-serif;font-weight:700;font-size:22px;
     letter-spacing:.06em;text-transform:uppercase;
     padding:14px 36px;border-radius:4px;margin-top:30px;
-    transition:background .2s, transform .15s;
+    transition:background .2s,transform .15s;
   }
   .btn:hover{background:var(--red-deep)}
   .btn:active{transform:translateY(1px)}
   .btn:focus-visible{outline:3px solid #fff;outline-offset:3px}
   .btn[disabled]{opacity:.45;cursor:not-allowed}
-  .btn-ghost{background:transparent;border:1px solid var(--line);color:var(--muted);font-size:18px;padding:10px 22px}
-  .btn-ghost:hover{background:var(--panel);color:var(--text)}
 
-  /* ---------- question screen ---------- */
+  /* questions */
   .progress-label{display:flex;justify-content:space-between;font-size:13px;color:var(--muted);letter-spacing:.08em;text-transform:uppercase;margin-bottom:10px}
   .q-dim{color:var(--red);font-weight:700}
   .q-text{font-size:clamp(24px,4.4vw,32px);font-weight:600;line-height:1.3;margin:18px 0 30px;min-height:3.2em}
@@ -100,7 +84,7 @@
     display:flex;align-items:center;gap:14px;width:100%;text-align:left;
     background:var(--panel);border:1px solid var(--line);border-radius:6px;
     color:var(--text);font-family:inherit;font-size:16px;padding:14px 18px;cursor:pointer;
-    transition:border-color .15s, background .15s;
+    transition:border-color .15s,background .15s;
   }
   .likert button:hover{border-color:var(--red);background:var(--panel-2)}
   .likert button:focus-visible{outline:2px solid var(--red);outline-offset:2px}
@@ -114,7 +98,7 @@
   .back{background:none;border:none;color:var(--muted);font-size:14px;cursor:pointer;margin-top:22px;text-decoration:underline;text-underline-offset:3px}
   .back:hover{color:var(--text)}
 
-  /* ---------- gate ---------- */
+  /* gate */
   .gate-card{background:var(--panel);border:1px solid var(--line);border-radius:8px;padding:34px 30px;margin-top:26px}
   .gate-card .h2{font-size:clamp(38px,6vw,52px);margin-bottom:10px}
   label{display:block;font-size:13px;letter-spacing:.1em;text-transform:uppercase;color:var(--muted);margin:18px 0 6px}
@@ -123,10 +107,9 @@
     color:var(--text);font-family:inherit;font-size:17px;padding:13px 14px;
   }
   input:focus-visible{outline:2px solid var(--red);outline-offset:1px;border-color:var(--red)}
-  .fine{color:var(--muted);font-size:13px;margin-top:14px}
   .err{color:#FF8C84;font-size:14px;margin-top:10px;display:none}
 
-  /* ---------- results ---------- */
+  /* results */
   .band-tag{
     display:inline-block;background:var(--red);color:#fff;border-radius:3px;
     font-family:'Saira Extra Condensed',sans-serif;font-weight:700;font-size:20px;
@@ -141,11 +124,26 @@
   .rbar .fill{width:100%;max-width:74px;background:linear-gradient(180deg,var(--red),var(--red-deep));border-radius:3px 3px 0 0;transition:height 1s ease;height:0}
   .rbar .val{font-family:'Saira Extra Condensed',sans-serif;font-weight:700;font-size:24px;margin-bottom:6px}
   .rbar .lbl{font-size:12px;color:var(--muted);letter-spacing:.04em;text-transform:uppercase;text-align:center;padding-top:10px;line-height:1.35;min-height:3.2em}
-  .read-block{background:var(--panel);border:1px solid var(--line);border-radius:8px;padding:26px 26px;margin-top:26px}
-  .read-block h3{font-family:'Saira Extra Condensed',sans-serif;font-weight:700;font-size:26px;text-transform:uppercase;letter-spacing:.03em;margin-bottom:8px}
-  .read-block h3 .pin{color:var(--red)}
-  .read-block p{color:#C6D0E0;font-size:16px}
-  .read-block p + p{margin-top:10px}
+
+  /* pillar blocks */
+  .pillar-section{margin-top:36px}
+  .pillar-section-title{
+    font-family:'Saira Extra Condensed',sans-serif;font-weight:700;font-size:13px;
+    letter-spacing:.18em;text-transform:uppercase;color:var(--muted);
+    margin-bottom:16px;border-bottom:1px solid var(--line);padding-bottom:10px;
+  }
+  .pillar-block{background:var(--panel);border:1px solid var(--line);border-radius:8px;padding:24px 26px;margin-bottom:14px}
+  .pillar-block-header{display:flex;align-items:center;justify-content:space-between;margin-bottom:12px;gap:12px;flex-wrap:wrap}
+  .pillar-block-name{font-family:'Saira Extra Condensed',sans-serif;font-weight:700;font-size:24px;text-transform:uppercase;letter-spacing:.03em}
+  .pillar-score-badge{font-family:'Saira Extra Condensed',sans-serif;font-weight:700;font-size:20px;color:var(--muted)}
+  .pillar-tier-label{font-size:11px;font-weight:700;letter-spacing:.14em;text-transform:uppercase;margin-bottom:8px}
+  .pillar-tier-label.strong{color:var(--ok)}
+  .pillar-tier-label.developing{color:#E8A838}
+  .pillar-tier-label.foundation{color:var(--red)}
+  .pillar-read{color:#C6D0E0;font-size:15.5px;line-height:1.65;margin-bottom:14px}
+  .pillar-action{background:var(--panel-2);border-left:3px solid var(--red);border-radius:0 6px 6px 0;padding:14px 16px;font-size:14.5px;color:var(--text);line-height:1.6}
+  .pillar-action strong{display:block;font-size:12px;letter-spacing:.1em;text-transform:uppercase;color:var(--muted);margin-bottom:6px}
+
   .cta-block{background:linear-gradient(135deg,var(--panel-2),var(--panel));border:1px solid var(--red);border-radius:8px;padding:30px 28px;margin-top:30px;text-align:center}
   .cta-block .display{font-size:clamp(30px,5vw,42px)}
   .cta-block p{color:var(--muted);margin-top:8px}
@@ -157,26 +155,23 @@
 <body>
 <div class="wrap">
 
-  <!-- ============ INTRO ============ -->
-  <section class="screen active" id="s-intro">
+  <!-- ============ ROUTING ============ -->
+  <section class="screen active" id="s-route">
     <div class="bars" aria-hidden="true"><span class="lit"></span><span></span><span></span><span></span><span></span></div>
     <p class="eyebrow">Tim Jacobs · Leadership Coaching</p>
     <h1 class="h1 display">Are you ready<br>to <em>lead?</em></h1>
-    <p class="lede">Most new leaders are promoted for what they did, then judged for what they've never been taught. This assessment measures your readiness across the five pillars that decide whether your first leadership years build momentum or burn you out.</p>
-    <div class="meta-row">
-      <span><b>20</b> questions</span>
-      <span><b>5</b> minutes</span>
-      <span><b>5</b> pillars scored</span>
+    <p class="lede">This assessment measures your readiness across five pillars. First, tell us where you are.</p>
+    <div class="path-cards">
+      <button class="path-card" onclick="choosePath('pursuing')">
+        <span class="path-card-title display">I'm pursuing leadership</span>
+        <span class="path-card-desc">I'm developing toward a leadership role and want to know how ready I am</span>
+      </button>
+      <button class="path-card" onclick="choosePath('leading')">
+        <span class="path-card-title display">I'm already leading a team</span>
+        <span class="path-card-desc">I'm in a formal leadership role and want to see where I'm strong and where I'm not</span>
+      </button>
     </div>
-    <div class="dims">
-      <div class="dim-row"><span class="display">Leadership Identity</span><p>Who you are when it costs you</p></div>
-      <div class="dim-row"><span class="display">Lead Well</span><p>How you lead the people in front of you</p></div>
-      <div class="dim-row"><span class="display">Live Right</span><p>How you lead yourself</p></div>
-      <div class="dim-row"><span class="display">Stand Firm</span><p>Character under pressure</p></div>
-      <div class="dim-row"><span class="display">Clarity &amp; Direction</span><p>Where you're going and how fast</p></div>
-    </div>
-    <button class="btn" onclick="startQuiz()">Start the assessment</button>
-    <p class="fine">Answer honestly, not aspirationally. The score is only useful if it's true.</p>
+    <p class="fine" style="margin-top:24px">Answer honestly, not aspirationally. The score is only useful if it's true.</p>
   </section>
 
   <!-- ============ QUESTIONS ============ -->
@@ -188,8 +183,8 @@
     </div>
     <p class="q-text" id="q-text"></p>
     <div class="likert" id="likert" role="group" aria-label="Answer options"></div>
-    <p class="hint">Tip: press 1–5 on your keyboard to answer faster.</p>
-    <button class="back" id="q-back" onclick="goBack()">← Previous question</button>
+    <p class="hint">Tip: press 1-5 on your keyboard to answer faster.</p>
+    <button class="back" id="q-back" onclick="goBack()">Previous question</button>
   </section>
 
   <!-- ============ EMAIL GATE ============ -->
@@ -204,121 +199,271 @@
       <label for="g-email">Email</label>
       <input type="email" id="g-email" autocomplete="email" placeholder="you@example.com">
       <p class="err" id="g-err">Enter a valid email to see your results.</p>
-      <button class="btn" id="g-btn" onclick="submitGate()">Show my results<span class="spin" id="g-spin">sending…</span></button>
-      <p class="fine">You'll get your results plus practical leadership coaching from me about once a week. Unsubscribe anytime. No spam, ever.</p>
+      <button class="btn" id="g-btn" onclick="submitGate()">Show my results<span class="spin" id="g-spin">sending...</span></button>
+      <p class="fine">You'll get your results plus practical leadership coaching from me about once a week. Unsubscribe anytime.</p>
     </div>
   </section>
 
   <!-- ============ RESULTS ============ -->
   <section class="screen" id="s-results">
-    <p class="eyebrow">Your readiness profile</p>
+    <p class="eyebrow" id="r-eyebrow">Your readiness profile</p>
     <span class="band-tag" id="r-band"></span>
     <div class="score-hero">
-      <div class="score-num display"><span id="r-score">0</span><small>/100</small></div>
+      <div class="score-num display"><span id="r-score">0</span><small>%</small></div>
       <p class="lede" id="r-bandcopy" style="margin:0 0 18px"></p>
     </div>
     <div class="result-bars" id="r-bars"></div>
-    <div class="read-block">
-      <h3><span class="pin">Strongest:</span> <span id="r-strong"></span></h3>
-      <p id="r-strong-copy"></p>
-    </div>
-    <div class="read-block">
-      <h3><span class="pin">Work here first:</span> <span id="r-weak"></span></h3>
-      <p id="r-weak-copy"></p>
-      <p id="r-weak-action" style="color:var(--text);font-weight:600"></p>
+    <div class="pillar-section">
+      <p class="pillar-section-title">Your five pillars</p>
+      <div id="r-pillars"></div>
     </div>
     <div class="cta-block" id="r-cta"></div>
     <div class="footer">
-      <span>© Tim Jacobs · timjacobs.coach</span>
-      <span>Lead with confidence. Lead with clarity.</span>
+      <span>Tim Jacobs · timjacobs.coach</span>
+      <span>Lead Well. Live Right. Stand Firm.</span>
     </div>
   </section>
-</div>
 
+</div>
 <script>
-/* ================= CONFIG · Tim: these 3 lines are your 10% ================= */
-const KIT_FORM_ID = "9553971";                          // paste your Kit form ID (numbers only) e.g. "7654321"
-const CALENDLY_URL = "https://calendly.com/tim-timjacobs/new-meeting";    // paste your booking link
-const COACH_EMAIL  = "tim@timjacobs.coach";      // fallback contact shown if signup fails
-/* ============================================================================ */
+/* ===== CONFIG ===== */
+const KIT_FORM_ID    = "9553971";
+const CALENDLY_URL   = "https://calendly.com/tim-timjacobs/new-meeting";
+const COHORT_URL     = "https://calendly.com/tim-timjacobs/new-meeting"; // update when cohort booking link is live
+const COACH_EMAIL    = "tim@timjacobs.coach";
+/* ================== */
 
 const DIMS = ["Leadership Identity","Lead Well","Live Right","Stand Firm","Clarity & Direction"];
+const SCALE = ["Strongly disagree","Disagree","Sometimes","Agree","Strongly agree"];
 
-const QUESTIONS = [
-  // d = pillar index, r = reverse-scored
-  // ----- Leadership Identity (from intake Q1, Q3, Q4 + one reverse) -----
+/* ===== QUESTIONS — PURSUING LEADERSHIP ===== */
+const QUESTIONS_PURSUING = [
+  // Leadership Identity
+  {d:0, t:"I know what I stand for independent of my job title or current role."},
+  {d:0, t:"When my values conflict with what's expected of me, I know which one I choose."},
+  {d:0, t:"I can describe the kind of leader I want to become without using someone else as the model."},
+  {d:0, t:"I change my position easily when I sense the room disagrees with me.", r:true},
+  // Lead Well
+  {d:1, t:"People come to me for guidance or input even when I don't have formal authority over them."},
+  {d:1, t:"When I see something going wrong in a group, I address it rather than wait for someone with a title to step in."},
+  {d:1, t:"I can have a direct, honest conversation with someone without it damaging the relationship."},
+  {d:1, t:"I wait to be given responsibility before I take ownership of a problem.", r:true},
+  // Live Right
+  {d:2, t:"My personal disciplines reflect what I say matters most to me."},
+  {d:2, t:"I have the energy and capacity to take on more responsibility than I currently carry."},
+  {d:2, t:"When I make a personal commitment, I follow through at the same standard I'd apply professionally."},
+  {d:2, t:"I need external pressure or a deadline to make progress on the things that matter to me.", r:true},
+  // Stand Firm
+  {d:3, t:"Who I am in private is the same person others see in public."},
+  {d:3, t:"When I'm wrong, I say so directly without minimizing it or redirecting blame."},
+  {d:3, t:"I hold my standard when the people around me are lowering theirs."},
+  {d:3, t:"I go along with group decisions I disagree with rather than risk the friction of speaking up.", r:true},
+  // Clarity & Direction
+  {d:4, t:"I have a clear picture of where I want to be as a leader in the next 2-3 years."},
+  {d:4, t:"I am actively developing myself for leadership, not just waiting for an opportunity to arrive."},
+  {d:4, t:"I know specifically what skills or qualities I need to build to be ready for the next level."},
+  {d:4, t:"I am ready to do real work on my development, not just consume content about it."}
+];
+
+/* ===== QUESTIONS — ALREADY LEADING ===== */
+const QUESTIONS_LEADING = [
+  // Leadership Identity
   {d:0, t:"My actions as a leader consistently reflect my stated values."},
   {d:0, t:"Under pressure, I still recognize the version of myself I want to be."},
   {d:0, t:"I can state my personal leadership standard: what I expect of myself regardless of role or title."},
-  {d:0, t:"I second-guess myself after most significant decisions.", r:true},
-  // ----- Lead Well (from intake Q6, Q7 + behavioral items) -----
+  {d:0, t:"I lead differently when senior leadership is watching than I do when it's just me and my team.", r:true},
+  // Lead Well
   {d:1, t:"The people I lead trust me as a person, not just my position."},
   {d:1, t:"I handle conflict and hard conversations directly, without unnecessary delay."},
   {d:1, t:"When a decision falls in a gray area, I make the call rather than escalate it."},
   {d:1, t:"I redo my team's work when it isn't done the way I would do it.", r:true},
-  // ----- Live Right (from intake Q11, Q12, Q13 + one reverse) -----
+  // Live Right
   {d:2, t:"My daily schedule reflects what I say matters most to me."},
   {d:2, t:"I have sustainable physical energy. I'm not running on empty."},
   {d:2, t:"I follow through on personal commitments with the same standard I hold for professional ones."},
   {d:2, t:"I run on urgency and adrenaline more than rhythm and routine.", r:true},
-  // ----- Stand Firm (from intake Q16, Q17, Q18 + one reverse) -----
+  // Stand Firm
   {d:3, t:"Who I am at work and who I am at home are the same person."},
   {d:3, t:"When I fail, I own it cleanly, without deflection or blame."},
   {d:3, t:"I make the right call even when it costs me politically or relationally."},
   {d:3, t:"I soften or shade the truth when the honest version would create friction.", r:true},
-  // ----- Clarity & Direction (from intake Q21, Q22, Q23, Q25) -----
+  // Clarity & Direction
   {d:4, t:"I know where I'm going in the next 12 months, professionally and personally."},
   {d:4, t:"I have a 90-day plan I'm actively working, not just goals I'm hoping for."},
   {d:4, t:"I feel real momentum in my life right now. Not stuck, not stalled."},
   {d:4, t:"I am ready to do the real work, not just read about it."}
 ];
 
-const SCALE = ["Strongly disagree","Disagree","Sometimes","Agree","Strongly agree"];
-
-const BANDS = [
-  { min:80, tag:"READY", name:"Ready to Rise",
-    copy:"You're operating above your title. The gap isn't capability. It's positioning, scope, and the rooms you're not in yet.",
-    cta:{h:"You're ready. Let's make sure the right people know it.",
-         p:"High scorers waste years waiting to be noticed. Book a free 30-minute Readiness Review and we'll map your next move: the role, the visibility plan, and the one skill that gets you there faster.",
-         b:"Book my free readiness review"}},
-  { min:60, tag:"BUILDING", name:"Building Momentum",
-    copy:"You have real leadership instincts and at least one pillar holding you back. Targeted work here moves you fast. Drift here keeps you stuck at almost.",
+/* ===== BANDS — PURSUING ===== */
+const BANDS_PURSUING = [
+  { min:80, name:"Ready to Rise",
+    copy:"The foundations are already here. You're not waiting to be given a chance — and the gap between where you are and leading formally is smaller than you think.",
+    cta:{h:"You're ready. Let's talk about what's next.",
+         p:"The leaders who transition into formal roles without the painful first-year trial and error are the ones who built these foundations before the title arrived. The Leader's Circle is a group coaching program for exactly this stage. If you're ready to prepare with intention and alongside other leaders doing the same work, book a free 30-minute call.",
+         b:"Learn about The Leader's Circle",url:"cohort"}},
+  { min:60, name:"Building Momentum",
+    copy:"You have the instincts. One or two pillars are still under construction. Targeted work here before you have formal authority means you arrive ready instead of catching up.",
     cta:{h:"You're closer than you think.",
-         p:"Your profile shows exactly where to focus. Watch your inbox. Over the next two weeks I'll send you the practical playbook for your lowest pillar, drawn from 20+ years of corporate and ministry leadership.",
-         b:"Want to move faster? Book a free call"}},
-  { min:0, tag:"FOUNDATION", name:"Laying the Foundation",
-    copy:"You're earlier in the leadership journey, which is the best possible time to build right habits instead of unlearning wrong ones later.",
+         p:"Watch your inbox. Over the next two weeks I'll send you practical content on your lowest pillar. When you're ready to close the gaps with a group of peers doing the same work, The Leader's Circle is worth a look.",
+         b:"Learn about The Leader's Circle",url:"cohort"}},
+  { min:0, name:"Laying the Foundation",
+    copy:"You're at the beginning, which is exactly where this work should start. Leaders who build these foundations before the title arrives skip years of painful adjustment after it does.",
     cta:{h:"Every strong leader started exactly here.",
-         p:"Your results email includes the first three foundations to build now, before you're managing people full-time. Start there. The leaders who build these early skip years of painful trial and error.",
-         b:"Get a head start. Book a free call"}}
+         p:"Your results email includes where to begin. When you're ready to build with others who are on the same path, The Leader's Circle is a group coaching program designed for this stage.",
+         b:"Learn about The Leader's Circle",url:"cohort"}}
 ];
 
-const DIM_READS = {
-  strong:[
-    "You know who you are when it costs you. Your values and your actions match, and pressure doesn't change your character. This is the foundation every other pillar stands on.",
-    "You're effective with the people in front of you. They trust you as a person, hard conversations happen on time, and gray-area calls don't stall on your desk. This is what gets noticed first.",
-    "You lead yourself before you lead anyone else. Your schedule, energy, and personal follow-through match what you say matters. This is what makes your leadership sustainable.",
-    "Your character holds under pressure. Same person at work and at home, clean ownership when you fail, right calls even when they cost you. This is what people remember about you in ten years.",
-    "You know where you're going and you're actively moving. A 12-month direction, a working plan, real momentum. Leaders with direction are the ones other people follow."
-  ],
-  weak:[
-    "There's a gap between the leader you say you are and the one showing up under pressure. People follow consistency, and right now yours is situational.",
-    "The professional mechanics are costing you: delayed conversations, decisions stalling on your desk, or work that still routes through you. Your team feels it before you see it.",
-    "You're leading from a depleted tank. When your calendar, energy, and personal commitments don't match your stated priorities, your leadership defaults to reaction. Reactive leaders plateau.",
-    "Pressure is bending your standards. Compartmentalizing, deflecting when things go wrong, or shading the truth to avoid friction. Small bends become a reputation.",
-    "You're working hard without a clear destination. Goals you're hoping for instead of a plan you're running. Drift feels like patience, but it compounds like debt."
-  ],
-  action:[
-    "This week: write your personal leadership standard in three sentences. What you expect of yourself regardless of role, title, or audience. Put it where you'll see it every day.",
-    "This week: name the one conversation or decision you've been managing around instead of handling. Handle it within 72 hours. Direct, kind, under 15 minutes.",
-    "This week: audit your calendar against your stated priorities and cut the worst mismatch. Then block 90 minutes of thinking time and treat it like a meeting with your VP.",
-    "This week: identify one place you've been compromising under pressure and name it out loud to one person you trust. Naming it is how the bend stops.",
-    "This week: write a 90-day plan with three outcomes and the first action for each. Put the first action on tomorrow's calendar."
-  ]
-};
+/* ===== BANDS — LEADING ===== */
+const BANDS_LEADING = [
+  { min:80, name:"Ready to Rise",
+    copy:"You're operating above your title. The gap isn't capability. It's positioning, scope, and the next level of challenge.",
+    cta:{h:"You're ready. Let's make sure the work matches it.",
+         p:"High scorers waste years waiting to be noticed or waiting for someone to hand them the next opportunity. In 1:1 coaching we work on what your profile actually shows — the specific gap, the specific next move. Book a free 30-minute call.",
+         b:"Book a free 30-minute call",url:"calendly"}},
+  { min:60, name:"Building Momentum",
+    copy:"You have real leadership instincts and at least one pillar holding you back. Targeted work here moves you fast. Drift here keeps you stuck at almost.",
+    cta:{h:"You're closer than you think.",
+         p:"Your profile shows exactly where to focus. In 1:1 coaching we work the specific gap, not the general topic. Book a free 30-minute call and let's talk about what that looks like for your situation.",
+         b:"Book a free 30-minute call",url:"calendly"}},
+  { min:0, name:"Laying the Foundation",
+    copy:"You're earlier in the leadership journey, and that's the best possible time to build right habits instead of unlearning wrong ones later.",
+    cta:{h:"The foundation is buildable. Let's start there.",
+         p:"The leaders who close these gaps fastest do it with someone in their corner who's navigated the same terrain. Book a free 30-minute call and let's figure out where to begin.",
+         b:"Book a free 30-minute call",url:"calendly"}}
+];
 
+/* ===== PILLAR READS — PURSUING ===== */
+const PILLAR_DATA_PURSUING = [
+  // 0 Leadership Identity
+  { tiers:[
+    { label:"Strong",cls:"strong",
+      read:"You know who you are before you have a title to stand on. Your values and convictions are yours — not borrowed from your environment and not held conditionally. That's the rarest thing in leadership development: most leaders discover who they are under pressure. You've done the work before the pressure arrived. Everything else you build will stand on this. The leaders who transition well live by one principle: be proven before you're promoted. You're already building that proof.",
+      action:"Your identity is clear. Now get it in writing. Write your personal leadership standard in three sentences — what you expect of yourself regardless of role, title, or who's watching. That document becomes the anchor for every decision you'll make with authority." },
+    { label:"Developing",cls:"developing",
+      read:"You have a sense of who you want to be as a leader, but it's still forming under social pressure. When the room pushes back, you feel the pull to adjust. That's not weakness — it's where identity gets tested and refined. The work here is knowing your convictions clearly enough that you don't have to recalculate them in real time. The standard worth building toward: be proven before you're promoted. What happens in these moments of pressure is exactly what that proof requires.",
+      action:"Write three things you will not do as a leader, regardless of pressure, politics, or what it might cost you relationally. Get them down before you step into formal authority, not after." },
+    { label:"Foundation",cls:"foundation",
+      read:"Right now you're borrowing your leadership identity — from people you admire, from what's expected of you, from roles you want to land. That's a starting point, not a foundation. Leaders who step into authority without a clear sense of who they are will always be shaped more by the room than by their own convictions. You have the chance to build this before the title arrives. The leaders who transition well are proven before they're promoted — not promoted and then catching up.",
+      action:"Spend 30 minutes this week answering one question in writing: What kind of leader do I refuse to become? That single question will give you more clarity than most leadership books combined. Don't skip it." }
+  ]},
+  // 1 Lead Well
+  { tiers:[
+    { label:"Strong",cls:"strong",
+      read:"You're already influencing people without formal authority — and that's the clearest predictor of how you'll lead when you have it. People trust your judgment, come to you for input, and follow your lead in group settings. You're practicing the most important part: leading from who you are, not from what you're allowed to do.",
+      action:"The next step is intentional influence. Identify one person in your sphere right now who could benefit from direct investment — not a casual conversation, a focused one. Ask them what they're working through and bring your best thinking to it. Leadership that prepares you to lead a team starts here." },
+    { label:"Developing",cls:"developing",
+      read:"You're capable of influencing others, but you're still waiting for the conditions to be right — for the title, the official responsibility, or someone to tell you it's your turn. Influence doesn't wait for permission. The leaders who are ready when formal authority arrives are the ones who practiced leading without it. You have more room to step in than you're currently using.",
+      action:"Identify one situation this week where you've been waiting for someone else to step up. Step in. Offer the perspective. Take ownership. Then observe how people respond — that response is data about your readiness." },
+    { label:"Foundation",cls:"foundation",
+      read:"The gap here isn't capability — it's initiative. You have more to offer than you're currently bringing to the room. Leaders who get tapped for formal roles are almost always the ones who demonstrated something first. John Wooden didn't start his seasons with playbooks or strategy. He started by teaching players how to put on their socks — no wrinkles, because wrinkles cause blisters, and blisters end careers. The principle: great leadership is built on the basics, done right, before anyone is watching. Small, consistent acts of influence without authority are how readiness gets built, not declared.",
+      action:"This week, in any group setting — work, church, community — speak up once when you'd normally stay quiet, and take ownership of one thing when you'd normally wait to be assigned. That's where it starts." }
+  ]},
+  // 2 Live Right
+  { tiers:[
+    { label:"Strong",cls:"strong",
+      read:"You're leading yourself before anyone has given you authority over others. Your disciplines, your energy, your personal follow-through — they match what you say matters. That kind of self-stewardship is what makes the transition to formal leadership sustainable. Most leaders find out their disciplines can't hold the weight of added responsibility. You're building before the weight arrives.",
+      action:"The risk for high scorers here is complacency — assuming these disciplines will maintain themselves once the stakes are higher. Identify the one practice that, if removed, would start a slow decline. Protect it now as a non-negotiable, before the demands increase." },
+    { label:"Developing",cls:"developing",
+      read:"Your personal disciplines are inconsistent, and that gap will show up more when you add the weight of leading others. Right now the cost is personal — you feel it in your energy, focus, and follow-through. Once you're responsible for a team, those same inconsistencies become visible and start to affect them. The time to address this is now, before the stakes go up.",
+      action:"Audit your calendar against your stated priorities and identify the single worst mismatch. Cut it. Then protect 90 minutes of development time this week and treat it as the most important appointment on your schedule." },
+    { label:"Foundation",cls:"foundation",
+      read:"You're not yet leading yourself at the level you'll need to lead others. That's not a moral failing — it's a data point. Before you can steward people well, you have to demonstrate stewardship of your own time, energy, and commitments. You cannot draw from a well you never dug. The leaders who struggle most in their first formal role are the ones who hadn't built personal discipline before the title arrived.",
+      action:"Start with one commitment this week — one thing you've said matters that you haven't been honoring. Follow through on it without exception. That single act of self-stewardship is worth more than a semester of leadership content." }
+  ]},
+  // 3 Stand Firm
+  { tiers:[
+    { label:"Strong",cls:"strong",
+      read:"Your character is already holding under pressure, and that's the one thing about leadership you can't fake for long. You're the same person in private as in public, you own your mistakes without deflecting, and you hold your standard when the room is lowering theirs. Your character will either open doors or disqualify you — and right now it's opening them. That consistency is the most powerful form of influence you have right now, and it will translate directly into trust when you lead formally.",
+      action:"Character under social pressure gets tested differently when you hold authority. Begin thinking now about what you will not compromise when you have the title — the call you'll make, the standard you'll hold, the truth you'll tell even when the position makes it harder, not easier." },
+    { label:"Developing",cls:"developing",
+      read:"You hold your character most of the time, but there are specific conditions where the bend happens — social pressure, the desire to belong, situations where the honest response creates friction. Those moments reveal what's still under construction. Character that holds in easy moments isn't the kind that earns trust. Remember this: character is your currency. Lose money, you can recover. Lose your name, and it may never come back. The trust you're building now for eventual leadership is being built or eroded in these small decisions.",
+      action:"Identify one situation in the past month where you softened something that should have been said clearly, or went along with something you knew wasn't right. Name what it was and what you'd do differently. Then do it differently the next time." },
+    { label:"Foundation",cls:"foundation",
+      read:"There's a gap between who you present yourself to be and who you actually are when it costs you something. Your character will either open doors or disqualify you — and it always shows itself over time. Position without character collapses. The leaders who close this gap fastest are the ones who name it honestly before someone else does. Every leader who carried real authority had to answer this question first: who are you when it costs you something?",
+      action:"Find one person — a mentor, a pastor, someone with no stake in your career — and tell them the truth about one area where your character is inconsistent. What gets named can be addressed. What stays hidden shapes you instead of you shaping it." }
+  ]},
+  // 4 Clarity & Direction
+  { tiers:[
+    { label:"Strong",cls:"strong",
+      read:"You know where you're going and you're actively preparing to get there. That combination — direction and discipline — is what separates emerging leaders who arrive ready from those who arrive and then have to catch up. You have a clear picture of the leader you're becoming and you're taking steps to get there before the title makes it necessary.",
+      action:"Direction without a timeline is a wish. Set a specific 12-month leadership development goal — one concrete skill or character quality to build — and identify the first action step. Put that step on your calendar this week." },
+    { label:"Developing",cls:"developing",
+      read:"You have a general sense of where you want to go, but the specifics are fuzzy. 'I want to be in leadership someday' is not the same as a clear direction with a plan behind it. The leaders who are ready when opportunities arrive didn't get ready after the opportunity — they were already preparing. What you do in the next 12 months before a title arrives will determine how ready you are when it does.",
+      action:"Write one sentence answering this: Where specifically do I want to be as a leader in 18 months, and what does ready look like? Then identify one concrete step — a book, a mentor conversation, a skill to develop — and put it on this week's calendar." },
+    { label:"Foundation",cls:"foundation",
+      read:"You know you want leadership, but you don't have a clear picture of what that looks like or a plan to get there. Leaders who wait to figure out direction once they have the title find themselves behind before they start. Clarity doesn't arrive on its own. You have to pursue it, and the pursuit is itself leadership development.",
+      action:"This week, spend 30 minutes writing answers to two questions: What kind of leader do I specifically want to become? And what would I need to build in the next 12 months to become that? That exercise is more clarifying than most formal leadership programs." }
+  ]}
+];
+
+/* ===== PILLAR READS — LEADING ===== */
+const PILLAR_DATA_LEADING = [
+  // 0 Leadership Identity
+  { tiers:[
+    { label:"Strong",cls:"strong",
+      read:"You know who you are when it costs you. Your values and your actions are the same person, and pressure hasn't changed that. Identity is the first stewardship — leaders who don't know who they are will become whoever the room needs them to be. You've built this foundation. Every other pillar stands on it. The leaders who last are the ones who were proven before they were promoted — and who keep proving it long after the title arrived.",
+      action:"Your identity is established. The next stewardship is clarity of assignment. Write down one thing you believe God has specifically called you to do through your leadership right now — not a role title, the actual purpose. Lead from that." },
+    { label:"Developing",cls:"developing",
+      read:"There's a gap between the leader you intend to be and the one showing up under pressure. That gap isn't failure — it's the space where identity gets formed. Leadership tests reveal what's actually there, not just what we hope is there. The standard worth holding: be proven before you're promoted to the next level. What your team sees in the difficult moments is exactly that proof — being built or broken right now.",
+      action:"Write three things you will not do as a leader regardless of pressure, politics, or cost. Not aspirations — commitments. What you hold in private is what holds when things go public." },
+    { label:"Foundation",cls:"foundation",
+      read:"You're leading from a borrowed identity — from your title, your track record, or what others expect from you. That works until it doesn't. Leaders who don't know who they are will always be more responsive to the room than to their own convictions. The work here is foundational, not remedial. Every leader who built something lasting had to answer this question first. The principle doesn't change with a title: be proven before you're promoted to the next level.",
+      action:"Spend 30 minutes this week answering one question in writing: What kind of leader do I refuse to become? That negative constraint will clarify your identity faster than any vision statement. Don't skip it." }
+  ]},
+  // 1 Lead Well
+  { tiers:[
+    { label:"Strong",cls:"strong",
+      read:"You're carrying the stewardship of people well. Your team trusts you as a person, not just your position, and the authority you have is serving them rather than protecting you. This is what servant leadership actually looks like in practice — not a posture, a pattern. The people in front of you are your primary assignment right now.",
+      action:"Identify the one person on your team with the most unrealized potential and invest specifically in them this week — not a task delegation, a development conversation. Stewarding the people in front of you is how leaders build what outlasts them." },
+    { label:"Developing",cls:"developing",
+      read:"You have real leadership instincts, but the mechanics are costing you. Delayed conversations, decisions that stall on your desk, or work that still routes through you because it's faster to do it yourself — your team feels these before you see them. Leading well is less about being good at the work and more about being faithful to the people doing it.",
+      action:"Name the one conversation or decision you've been managing around instead of handling directly. Handle it this week — direct, kind, and under 15 minutes. The longer it waits, the more it costs you in the room." },
+    { label:"Foundation",cls:"foundation",
+      read:"The gap between what you're capable of and what your team is experiencing is larger than you may realize. It's not about skill — it's about the shift from individual execution to stewardship of others. That shift doesn't happen automatically. Leadership doesn't lighten the load — it makes you strong enough to carry more. The leaders who make it fastest are the ones who start treating their team's growth as their primary output, not a secondary responsibility.",
+      action:"This week, ask one person on your team: 'What's the one thing I could do differently that would make your work easier?' Then do it within 48 hours. That's not weakness — it's the beginning of real leadership." }
+  ]},
+  // 2 Live Right
+  { tiers:[
+    { label:"Strong",cls:"strong",
+      read:"You're leading yourself before you lead anyone else. Your schedule, energy, and personal commitments match what you say matters — and that consistency is the foundation your leadership runs on. Leaders who steward themselves well can sustain what other leaders burn through. You've built this. Don't assume it maintains itself.",
+      action:"The risk for high scorers here is gradual drift — disciplines that feel secure but slowly erode. Identify the one practice that, if removed, would start a slow decline. Protect it as a non-negotiable and treat that protection as stewardship." },
+    { label:"Developing",cls:"developing",
+      read:"There's a gap between the disciplines you know you need and the ones you're actually keeping. That gap doesn't stay contained — it spreads into your decision quality, your relational margin, and eventually your leadership output. Leaders who don't steward their own energy become reactive. Reactive leaders plateau — not because they're not talented, but because they're always operating at a deficit.",
+      action:"Audit your calendar against your stated priorities and identify the worst mismatch. Cut it. Then protect 90 minutes of uninterrupted thinking time this week and treat it like a meeting you cannot reschedule." },
+    { label:"Foundation",cls:"foundation",
+      read:"You're running on empty, and it's showing up in your leadership whether you recognize it yet or not. Elijah was one of the most effective leaders in scripture and he burned out completely. The restoration came through rest and provision, not more effort. You cannot draw from a well you never dug. This isn't about motivation — it's about whether your current pace can carry the assignment ahead of you.",
+      action:"Start with sleep this week. Not optimization — basics. Pick one night where you're in bed 60 minutes earlier than usual and protect it without exception. Sustainable leadership starts with a body that isn't running on fumes." }
+  ]},
+  // 3 Stand Firm
+  { tiers:[
+    { label:"Strong",cls:"strong",
+      read:"Your character is holding. You're the same person at work and at home, you own your failures without deflection, and you make the right call even when it costs you politically or relationally. Character is your currency — lose money, you can recover; lose your name, and it may never come back. Character is the stewardship that accumulates in silence — people don't see the moments you held your standard, but they feel the pattern over time. You've built a foundation of trust that your title alone never could.",
+      action:"The test of character isn't only in big visible moments — it's in the small ones nobody's watching. Identify one area where you've quietly lowered your standard just once and restore it this week before it becomes a pattern." },
+    { label:"Developing",cls:"developing",
+      read:"You're holding your standard most of the time, but pressure is bending it in specific situations. Compartmentalization, softening the truth to avoid friction, or going along with decisions you know aren't right — these feel like small bends. They become a reputation. Position without character collapses. If you don't live it, you can't lead it. Character isn't tested in the moments you prepare for. It's revealed in the ones you don't.",
+      action:"Identify one area where you've been inconsistent — where the standard you hold in public isn't the one you're keeping in private. Name it to one person you trust this week. Accountability isn't a sign of weakness — it's one of the most consistent patterns in how leaders actually grow." },
+    { label:"Foundation",cls:"foundation",
+      read:"There's a wider gap than you'd like to admit between who you appear to be and who you actually are. Your character will either open doors or disqualify you — and it always shows itself over time. The leaders who close it fastest are the ones who name it honestly before someone else does. Integrity doesn't mean perfection. It means the inside and outside match. Right now they don't, and the cost compounds until the gap is addressed.",
+      action:"Don't manage this alone. Find one person — a mentor, a pastor, someone with no stake in your career — and tell them the truth about one area where your character is inconsistent. What gets named gets addressed. What stays hidden gets worse." }
+  ]},
+  // 4 Clarity & Direction
+  { tiers:[
+    { label:"Strong",cls:"strong",
+      read:"You know where you're going and you're actively moving. A clear direction, a working plan, real momentum — this is rarer than most leaders realize. Clarity is a form of stewardship: it multiplies everything else. When you know your assignment, your team can operate without you in every room because they already know what you'd say.",
+      action:"Clarity without communication becomes a bottleneck. Identify one person on your team who doesn't fully understand your direction and have a focused 15-minute conversation specifically about where you're headed and why. Shared clarity multiplies faster than individual clarity." },
+    { label:"Developing",cls:"developing",
+      read:"You have a general sense of direction but the specifics are fuzzy, and that fuzziness flows downstream. Your team is working hard without a clear destination, making judgment calls on incomplete information. Goals you're hoping for aren't the same as a plan you're running. The difference matters — hope doesn't create accountability. A plan does.",
+      action:"Write a 90-day plan with three specific outcomes and the first concrete action for each. Put the first action on tomorrow's calendar. Not a vision exercise — a plan with dates. Where there's no clear direction, people drift. Start with 90 days." },
+    { label:"Foundation",cls:"foundation",
+      read:"You're working without a clear assignment. The effort is real but the direction is borrowed — from whoever is most urgent, whatever the current priority is, or a role you were handed without choosing. Leaders who don't define their own direction will always end up executing someone else's agenda. That's not stewardship — it's drift.",
+      action:"Before this week ends, write one sentence answering this question: What has God specifically called me to do through my leadership in this season? Not your job description — your assignment. If you can't write the sentence, that's the most important problem to solve right now." }
+  ]}
+];
+
+/* ===== STATE ===== */
+let currentPath = null;
 let qi = 0;
-const answers = new Array(QUESTIONS.length).fill(null);
+const answers = new Array(20).fill(null);
 
 function show(id){
   document.querySelectorAll('.screen').forEach(s=>s.classList.remove('active'));
@@ -326,12 +471,23 @@ function show(id){
   window.scrollTo({top:0});
 }
 
-function startQuiz(){ qi = 0; renderQ(); show('s-quiz'); }
+function choosePath(path){
+  currentPath = path;
+  qi = 0;
+  answers.fill(null);
+  renderQ();
+  show('s-quiz');
+}
+
+function currentQuestions(){
+  return currentPath === 'pursuing' ? QUESTIONS_PURSUING : QUESTIONS_LEADING;
+}
 
 function renderQ(){
-  const q = QUESTIONS[qi];
+  const qs = currentQuestions();
+  const q = qs[qi];
   document.getElementById('q-dim').textContent = DIMS[q.d];
-  document.getElementById('q-count').textContent = (qi+1) + " / " + QUESTIONS.length;
+  document.getElementById('q-count').textContent = (qi+1) + " / " + qs.length;
   document.getElementById('q-text').textContent = q.t;
   document.getElementById('q-back').style.visibility = qi === 0 ? 'hidden' : 'visible';
   const box = document.getElementById('likert');
@@ -339,17 +495,17 @@ function renderQ(){
   SCALE.forEach((label,i)=>{
     const b = document.createElement('button');
     b.innerHTML = '<span class="key">'+(i+1)+'</span>'+label;
-    b.onclick = ()=>answer(i+1);
+    b.onclick = ()=>answerQ(i+1);
     box.appendChild(b);
   });
-  // light progress bars by fifths
   const bars = document.querySelectorAll('#quiz-bars span');
-  bars.forEach((s,i)=> s.classList.toggle('lit', i < Math.max(1,Math.ceil((qi+1)/QUESTIONS.length*5))));
+  bars.forEach((s,i)=> s.classList.toggle('lit', i < Math.max(1,Math.ceil((qi+1)/qs.length*5))));
 }
 
-function answer(v){
+function answerQ(v){
   answers[qi] = v;
-  if(qi < QUESTIONS.length-1){ qi++; renderQ(); }
+  const qs = currentQuestions();
+  if(qi < qs.length-1){ qi++; renderQ(); }
   else { show('s-gate'); document.getElementById('g-name').focus(); }
 }
 
@@ -357,13 +513,14 @@ function goBack(){ if(qi>0){ qi--; renderQ(); } }
 
 document.addEventListener('keydown', e=>{
   if(!document.getElementById('s-quiz').classList.contains('active')) return;
-  if(e.key>='1' && e.key<='5') answer(parseInt(e.key,10));
+  if(e.key>='1' && e.key<='5') answerQ(parseInt(e.key,10));
 });
 
-/* ---------- scoring ---------- */
+/* ===== SCORING ===== */
 function computeScores(){
+  const qs = currentQuestions();
   const sums = DIMS.map(()=>0), counts = DIMS.map(()=>0);
-  QUESTIONS.forEach((q,i)=>{
+  qs.forEach((q,i)=>{
     let v = answers[i] ?? 3;
     if(q.r) v = 6 - v;
     sums[q.d]+=v; counts[q.d]++;
@@ -373,9 +530,14 @@ function computeScores(){
   return {dimPct, total};
 }
 
-function bandFor(total){ return BANDS.find(b=> total>=b.min); }
+function bandFor(total){
+  const bands = currentPath === 'pursuing' ? BANDS_PURSUING : BANDS_LEADING;
+  return bands.find(b=> total>=b.min);
+}
 
-/* ---------- gate + Kit ---------- */
+function tierFor(score){ return score>=70 ? 0 : score>=40 ? 1 : 2; }
+
+/* ===== GATE ===== */
 async function submitGate(){
   const email = document.getElementById('g-email').value.trim();
   const name  = document.getElementById('g-name').value.trim();
@@ -400,57 +562,69 @@ async function submitGate(){
       fd.append('fields[pillar_live_right]', String(dimPct[2]));
       fd.append('fields[pillar_stand_firm]', String(dimPct[3]));
       fd.append('fields[pillar_direction]', String(dimPct[4]));
-      await fetch('https://app.kit.com/forms/'+KIT_FORM_ID+'/subscriptions', {method:'POST', body:fd, mode:'no-cors'});
-    }catch(e){ console.warn('Kit signup failed:', e); }
-  } else {
-    console.log('PREVIEW MODE: no Kit form ID set. Captured:', {email,name,total,band:band.name,dimPct});
+      fd.append('fields[assessment_path]', currentPath);
+      await fetch('https://app.kit.com/forms/'+KIT_FORM_ID+'/subscriptions',{method:'POST',body:fd,mode:'no-cors'});
+    }catch(e){ console.warn('Kit signup failed:',e); }
   }
   renderResults(name);
 }
 
-/* ---------- results ---------- */
+/* ===== RESULTS ===== */
 function renderResults(name){
   const {dimPct,total} = computeScores();
   const band = bandFor(total);
+  const pillarData = currentPath === 'pursuing' ? PILLAR_DATA_PURSUING : PILLAR_DATA_LEADING;
 
+  document.getElementById('r-eyebrow').textContent = currentPath === 'pursuing' ? 'Your leadership readiness profile' : 'Your leadership profile';
   document.getElementById('r-band').textContent = band.name;
   document.getElementById('r-bandcopy').textContent = (name ? name + ": " : "") + band.copy;
 
-  // bars: labels live inside each column so they can't drift
+  // bar chart sorted ascending
   const barsBox = document.getElementById('r-bars');
   barsBox.innerHTML="";
-  // sort ascending for the signature ascending-bars read
   const order = dimPct.map((v,i)=>({v,i})).sort((a,b)=>a.v-b.v);
   order.forEach(o=>{
     const w = document.createElement('div'); w.className='rbar';
-    w.innerHTML =
+    w.innerHTML=
       '<div class="stack"><div class="val display">'+o.v+'</div><div class="fill" data-h="'+Math.max(o.v,4)+'"></div></div>'+
       '<div class="lbl">'+DIMS[o.i]+'</div>';
     barsBox.appendChild(w);
   });
 
-  const hi = dimPct.indexOf(Math.max(...dimPct));
-  const lo = dimPct.indexOf(Math.min(...dimPct));
-  document.getElementById('r-strong').textContent = DIMS[hi] + " · " + dimPct[hi];
-  document.getElementById('r-strong-copy').textContent = DIM_READS.strong[hi];
-  document.getElementById('r-weak').textContent = DIMS[lo] + " · " + dimPct[lo];
-  document.getElementById('r-weak-copy').textContent = DIM_READS.weak[lo];
-  document.getElementById('r-weak-action').textContent = DIM_READS.action[lo];
+  // all 5 pillar blocks
+  const pillarsBox = document.getElementById('r-pillars');
+  pillarsBox.innerHTML="";
+  dimPct.forEach((score,i)=>{
+    const t = tierFor(score);
+    const tier = pillarData[i].tiers[t];
+    const block = document.createElement('div');
+    block.className='pillar-block';
+    block.innerHTML=
+      '<div class="pillar-block-header">'+
+        '<span class="pillar-block-name display">'+DIMS[i]+'</span>'+
+        '<span class="pillar-score-badge">'+score+'%</span>'+
+      '</div>'+
+      '<p class="pillar-tier-label '+tier.cls+'">'+tier.label+'</p>'+
+      '<p class="pillar-read">'+tier.read+'</p>'+
+      '<div class="pillar-action"><strong>This week</strong>'+tier.action+'</div>';
+    pillarsBox.appendChild(block);
+  });
 
+  // CTA
   const cta = band.cta;
-  document.getElementById('r-cta').innerHTML =
+  const ctaUrl = cta.url === 'cohort' ? COHORT_URL : CALENDLY_URL;
+  document.getElementById('r-cta').innerHTML=
     '<h2 class="display">'+cta.h+'</h2><p>'+cta.p+'</p>'+
-    '<a class="btn" href="'+CALENDLY_URL+'" target="_blank" rel="noopener">'+cta.b+'</a>';
+    '<a class="btn" href="'+ctaUrl+'" target="_blank" rel="noopener">'+cta.b+'</a>';
 
-  document.getElementById('r-score').textContent = "0";
+  document.getElementById('r-score').textContent="0";
   show('s-results');
 
-  // animate
   requestAnimationFrame(()=>{
-    document.querySelectorAll('#r-bars .fill').forEach(f=>{ f.style.height = f.dataset.h + "%"; });
-    const target = total; let cur = 0;
-    const step = ()=>{ cur += Math.max(1,Math.round(target/40)); if(cur>=target){cur=target} 
-      document.getElementById('r-score').textContent = cur; if(cur<target) requestAnimationFrame(step); };
+    document.querySelectorAll('#r-bars .fill').forEach(f=>{ f.style.height=f.dataset.h+"%"; });
+    const target=total; let cur=0;
+    const step=()=>{ cur+=Math.max(1,Math.round(target/40)); if(cur>=target){cur=target}
+      document.getElementById('r-score').textContent=cur; if(cur<target) requestAnimationFrame(step); };
     requestAnimationFrame(step);
   });
 }
